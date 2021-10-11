@@ -1,0 +1,1 @@
+# rankmi-rubocop-lintern
