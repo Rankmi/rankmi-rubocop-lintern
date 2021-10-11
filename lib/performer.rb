@@ -23,24 +23,24 @@ require 'time'
   "Authorization": "Bearer #{@GITHUB_TOKEN}"
 }
 @status = {
-  'in_progress' => 'in_progress',
-  'completed' => 'completed'
+  'in_progress': 'in_progress',
+  'completed': 'completed'
 }
 
 @annotation_levels = {
-  'refactor' => 'failure',
-  'convention' => 'failure',
-  'warning' => 'warning',
-  'error' => 'failure',
-  'fatal' => 'failure'
+  'refactor': 'failure',
+  'convention': 'failure',
+  'warning': 'warning',
+  'error': 'failure',
+  'fatal': 'failure'
 }
 
 def create_check
   body = {
-    'name' => @check_name,
-    'head_sha' => @GITHUB_SHA,
-    'status' => @status[in_progress],
-    'started_at' => Time.now.iso8601
+    'name': @check_name,
+    'head_sha': @GITHUB_SHA,
+    'status': @status[in_progress],
+    'started_at': Time.now.iso8601
   }
 
   http = Net::HTTP.new('api.github.com', 443)
@@ -94,11 +94,11 @@ def run_rubocop
       conclusion = 'failure' if annotation_level.eql?('failure')
 
       annotations << (
-        path: path,
-        start_line: location['start_line'],
-        end_line: location['start_line'],
-        annotation_level: annotation_level,
-        message: message
+        'path': path,
+        'start_line': location['start_line'],
+        'end_line': location['start_line'],
+        'annotation_level': annotation_level,
+        'message'=> message
       )
     end
   end
