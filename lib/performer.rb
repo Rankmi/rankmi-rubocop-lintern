@@ -22,10 +22,6 @@ require 'time'
   "Accept" => 'application/vnd.github.antiope-preview+json',
   "Authorization" => "Bearer #{@GITHUB_TOKEN}"
 }
-@status = {
-  'in_progress' => 'in_progress',
-  'completed' => 'completed'
-}
 
 @annotation_levels = {
   'refactor' => 'failure',
@@ -39,7 +35,7 @@ def create_check
   body = {
     'name' => @check_name,
     'head_sha' => @GITHUB_SHA,
-    'status' => @status[in_progress],
+    'status' => 'in_progress',
     'started_at' => Time.now.iso8601
   }
 
@@ -56,7 +52,7 @@ def update_check(id, conclusion, output)
   body = {
     'name' => @check_name,
     'head_sha' => @GITHUB_SHA,
-    'status' => @status[completed],
+    'status' => 'completed',
     'completed_at' => Time.now.iso8601,
     'conclusion' => conclusion,
     'output' => output
