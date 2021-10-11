@@ -9,4 +9,9 @@ LABEL com.github.actions.color="red"
 LABEL maintainer="Felipe Alvarado <felipe.alvarado+rubcolintern@rankmi.com>"
 
 COPY lib /action/lib
+COPY lib/Gemfile ./Gemfile
+COPY lib/Gemfile.lock ./Gemfile.lock
+RUN gem install bundler 
+RUN bundle install
+
 ENTRYPOINT ["/action/lib/entrypoint.sh"]
