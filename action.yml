@@ -1,0 +1,9 @@
+name: 'Rankmi Rubocop Github Action'
+description: 'Run Rubocop lintern on [pull_request]'
+author: 'Rankmi'
+branding:
+  icon: 'alert-triangle'
+  color: 'red'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
