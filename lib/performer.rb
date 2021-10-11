@@ -17,30 +17,30 @@ require 'time'
 @check_name = 'Rubocop'
 
 @headers = {
-  "Content-Type": 'application/json',
-  "User-Agent": 'rankmi-rubocop-lintern',
-  "Accept": 'application/vnd.github.antiope-preview+json',
-  "Authorization": "Bearer #{@GITHUB_TOKEN}"
+  "Content-Type" => 'application/json',
+  "User-Agent" => 'rankmi-rubocop-lintern',
+  "Accept" => 'application/vnd.github.antiope-preview+json',
+  "Authorization" => "Bearer #{@GITHUB_TOKEN}"
 }
 @status = {
-  'in_progress': 'in_progress',
-  'completed': 'completed'
+  'in_progress' => 'in_progress',
+  'completed' => 'completed'
 }
 
 @annotation_levels = {
-  'refactor': 'failure',
-  'convention': 'failure',
-  'warning': 'warning',
-  'error': 'failure',
-  'fatal': 'failure'
+  'refactor' => 'failure',
+  'convention' => 'failure',
+  'warning' => 'warning',
+  'error' => 'failure',
+  'fatal' => 'failure'
 }
 
 def create_check
   body = {
-    'name': @check_name,
-    'head_sha': @GITHUB_SHA,
-    'status': @status[in_progress],
-    'started_at': Time.now.iso8601
+    'name' => @check_name,
+    'head_sha' => @GITHUB_SHA,
+    'status' => @status[in_progress],
+    'started_at' => Time.now.iso8601
   }
 
   http = Net::HTTP.new('api.github.com', 443)
@@ -94,21 +94,21 @@ def run_rubocop
       conclusion = 'failure' if annotation_level.eql?('failure')
 
       annotations << (
-        'path': path,
-        'start_line': location['start_line'],
-        'end_line': location['start_line'],
-        'annotation_level': annotation_level,
+        'path' => path,
+        'start_line' => location['start_line'],
+        'end_line' => location['start_line'],
+        'annotation_level' => annotation_level,
         'message'=> message
       )
     end
   end
 
   output = {
-    "title": @check_name,
-    "summary": "#{count} issues  found",
-    'annotations': annotations
+    "title" => @check_name,
+    "summary" => "#{count} issues  found",
+    'annotations' => annotations
   }
-  { 'output': output, 'conclusion': conclusion }
+  { 'output' => output, 'conclusion' => conclusion }
 end
 
 def run
@@ -122,7 +122,7 @@ def run
   if conclusion.eql?('failure')
     puts output[:summary]
     output[:annotations].each do |annotation|
-      puts "L#{annotation[:start_line]}-L#{annotation[:end_line]}:#{annotation[:message]}"
+      puts "L#{annotation[start_line]}-L#{annotation[end_line]}:#{annotation[message]}"
     end
     raise 'Rubocop found some issues :( '
   end
