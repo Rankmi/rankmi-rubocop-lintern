@@ -93,12 +93,12 @@ def run_rubocop
 
       conclusion = 'failure' if annotation_level.eql?('failure')
 
-      annotations << (
+      annotations.push(
         'path' => path,
         'start_line' => location['start_line'],
         'end_line' => location['start_line'],
-        'annotation_level' => annotation_level,
-        'message'=> message
+        "annotation_level": annotation_level,
+        'message' => message
       )
     end
   end
